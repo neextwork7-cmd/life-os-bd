@@ -80,8 +80,10 @@ function ReferenceMarkup({ html, header = false, plain = false }: { html: string
   useEffect(() => {
     if (!menu) return;
     const close = (event: KeyboardEvent) => { if (event.key === "Escape") setMenu(false); };
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
     document.addEventListener("keydown", close);
-    return () => document.removeEventListener("keydown", close);
+    return () => { document.body.style.overflow = previous; document.removeEventListener("keydown", close); };
   }, [menu]);
   const [language, setLanguage] = useState(false);
   const [hidden, setHidden] = useState<number[]>([]);
@@ -139,6 +141,7 @@ function ReferenceMarkup({ html, header = false, plain = false }: { html: string
       if (node.name === "button") {
         const close = cls.includes("close");
         if (cls.includes("rd-navbar-toggle")) return <Button variant="reference" size="reference" className={`${cls} ${menu ? "active" : ""}`} aria-label={menu ? "Close navigation" : "Open navigation"} aria-expanded={menu} aria-controls="lifeos-navigation" onClick={() => setMenu(!menu)}>{menu ? <X size={22} /> : <Menu size={22} />}</Button>;
+        if (header && attrs["type"] === "submit") return <Button variant="reference" size="reference" className={cls} type="submit" aria-label="Search">{children()}</Button>;
         return <Button variant="reference" size="reference" className={cls} type={attrs["type"] === "submit" ? "submit" : "button"} aria-label={attrs["aria-label"]} onClick={close ? (event) => { const el = event.currentTarget.closest(".alert"); if (el) (el as HTMLElement).hidden = true; setHidden([...hidden]); } : cls.includes("rd-navbar-toggle") ? () => setMenu(!menu) : cls.includes("dropdown-toggle") ? () => setLanguage(!language) : undefined}>{children()}</Button>;
       }
       if (cls.includes("rd-navbar-nav-wrap")) return <>{menu && <Button variant="reference" size="reference" className="lifeos-menu-backdrop" aria-label="Dismiss navigation" onClick={() => setMenu(false)} />}<div id="lifeos-navigation" className={`${cls} ${menu ? "mobile-open" : ""}`}>{menu && <div className="lifeos-drawer-head"><Button variant="reference" size="reference" className="lifeos-drawer-close" aria-label="Close navigation" onClick={() => setMenu(false)}><X size={20} /></Button><img src={logo} alt="Life OS" /></div>}{children()}</div></>;
