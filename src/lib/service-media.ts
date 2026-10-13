@@ -1,5 +1,5 @@
 /** One image per service, shared by overview, detail and video placements. */
-const images = import.meta.glob<{ default: { url: string } }>("/src/assets/imported/src/assets/hd/service-*.jpg.asset.json", { eager: true });
+const images = import.meta.glob<{ default: string }>("/src/assets/imported/src/assets/hd/service-*.jpg", { eager: true });
 
 export const serviceNames = [
   "Life ID & Digital Identity", "Banking Services", "Digital Payments",

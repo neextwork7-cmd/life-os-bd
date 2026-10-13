@@ -1,6 +1,6 @@
 /** Detail content for every Services menu item; hero images live in src/assets/hd/page-<slug>.jpg. */
-const heroes = import.meta.glob<{ default: { url: string } }>("/src/assets/imported/src/assets/hd/page-*.jpg.asset.json", { eager: true });
-const tiles = import.meta.glob<{ default: { url: string } }>("/src/assets/imported/src/assets/hd/service-*.jpg.asset.json", { eager: true });
+const heroes = import.meta.glob<{ default: string }>("/src/assets/imported/src/assets/hd/page-*.jpg", { eager: true });
+const tiles = import.meta.glob<{ default: string }>("/src/assets/imported/src/assets/hd/service-*.jpg", { eager: true });
 
 export type ServicePage = {
   slug: string; title: string; group: "Finance & Health" | "Lifestyle"; tagline: string; intro: string;
