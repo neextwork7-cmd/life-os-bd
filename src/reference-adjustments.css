@@ -396,3 +396,9 @@
   .reference-site .mobile-open .rd-menu{background:var(--muted)}
 }
 @keyframes lifeos-drawer-in{from{transform:translateX(-100%)}to{transform:none}}
+@media(max-width:767px){
+  .reference-site .mobile-open .rd-navbar-nav{display:flex!important;flex-direction:column;align-items:stretch;width:100%}
+  .reference-site .mobile-open .rd-nav-item{width:100%;display:block}
+  .reference-site .mobile-open .rd-nav-link{width:100%}
+  .reference-site :is(.rd-navbar-main,.rd-navbar-main-outer,.container,.rd-navbar-panel){transform:none!important;filter:none!important}
+}
