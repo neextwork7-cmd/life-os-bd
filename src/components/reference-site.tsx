@@ -62,13 +62,13 @@ function CompactCollection({ node, options, limit }: { node: Element; options: H
 // Each video keeps its own banner as poster; every play loads the shared 5s Life OS logo clip.
 function PosterVideo({ poster, alt }: { poster: string; alt: string }) {
   const [playing, setPlaying] = useState(false);
-  if (playing) return <video className="lifeos-video" src={introVideo.url} poster={poster} autoPlay controls playsInline onEnded={() => setPlaying(false)} aria-label={alt} />;
-  return <Button variant="reference" size="reference" className="lifeos-video-poster" aria-label={`Play ${alt}`} onClick={() => setPlaying(true)}><img className="reference-video-poster" src={poster} alt={alt} loading="lazy" decoding="async" /><img className="lifeos-video-logo" src={logoPointer.url} alt="" aria-hidden="true" /><span className="lifeos-video-play" aria-hidden="true" /></Button>;
+  if (playing) return <video className="lifeos-video" src={introVideo} poster={poster} autoPlay controls playsInline onEnded={() => setPlaying(false)} aria-label={alt} />;
+  return <Button variant="reference" size="reference" className="lifeos-video-poster" aria-label={`Play ${alt}`} onClick={() => setPlaying(true)}><img className="reference-video-poster" src={poster} alt={alt} loading="lazy" decoding="async" /><img className="lifeos-video-logo" src={logo} alt="" aria-hidden="true" /><span className="lifeos-video-play" aria-hidden="true" /></Button>;
 }
 
 
 export function BrandedPhoto({ src, alt, viewer = false, onOpen, className = "" }: { src: string; alt: string; viewer?: boolean; onOpen?: () => void; className?: string }) {
-  const image = <><img className={`lifeos-photo-image ${viewer ? "" : className.replace("img-responsive", "")}`.trim()} src={src} alt={alt} loading="eager" decoding="async" /><img className="lifeos-photo-logo" src={logoPointer.url} alt="Life OS" aria-hidden="true" /></>;
+  const image = <><img className={`lifeos-photo-image ${viewer ? "" : className.replace("img-responsive", "")}`.trim()} src={src} alt={alt} loading="eager" decoding="async" /><img className="lifeos-photo-logo" src={logo} alt="Life OS" aria-hidden="true" /></>;
   return viewer ? <span className="lifeos-photo lifeos-photo-viewer">{image}</span> : !onOpen ? <span className="lifeos-photo">{image}</span> : <Button variant="reference" size="reference" className="lifeos-photo lifeos-photo-action" aria-label={`View ${alt}`} onClick={event => { event.preventDefault(); event.stopPropagation(); onOpen(); }}>{image}</Button>;
 }
 
