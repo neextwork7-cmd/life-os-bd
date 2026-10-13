@@ -1,5 +1,5 @@
 /** One image per service, shared by overview, detail and video placements. */
-const images = import.meta.glob<{ default: { url: string } }>("/src/assets/imported/src/assets/hd/service-*.jpg.asset.json", { eager: true });
+const images = import.meta.glob<{ default: string }>("/src/assets/imported/src/assets/hd/service-*.jpg", { eager: true });
 
 export const serviceNames = [
   "Life ID & Digital Identity", "Banking Services", "Digital Payments",
@@ -16,7 +16,7 @@ export const serviceNames = [
 const byName = new Map<string, string>();
 const byNumber = new Map<number, string>();
 serviceNames.forEach((name, index) => {
-  const image = images[`/src/assets/imported/src/assets/hd/service-${String(index + 1).padStart(2, "0")}.jpg.asset.json`]?.default.url;
+  const image = images[`/src/assets/imported/src/assets/hd/service-${String(index + 1).padStart(2, "0")}.jpg`]?.default;
   if (image) { byName.set(name.toLowerCase(), image); byNumber.set(index + 1, image); }
 });
 

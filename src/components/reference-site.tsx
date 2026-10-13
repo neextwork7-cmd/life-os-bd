@@ -1,5 +1,5 @@
-import logoPointer from "@/assets/life-os-logo.png.asset.json";
-import introVideo from "@/assets/lifeos-logo-intro.mp4.asset.json";
+import logo from "@/assets/life-os-logo.png";
+import introVideo from "@/assets/lifeos-logo-intro.mp4";
 import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import parse, { attributesToProps, domToReact, Element, type DOMNode, type HTMLReactParserOptions } from "html-react-parser";
@@ -10,23 +10,20 @@ import { collectionLimit, collectionGroups } from "@/lib/content-density";
 import { serviceImage } from "@/lib/service-media";
 import { aboutPresentation } from "@/lib/about-presentation";
 import { supportPresentation } from "@/lib/support-presentation";
-import bannerOnePointer from "@/assets/imported/src/assets/refined/banner-1.jpg.asset.json";
-const bannerOne = bannerOnePointer.url;
-import bannerTwoPointer from "@/assets/imported/src/assets/refined/banner-2.jpg.asset.json";
-const bannerTwo = bannerTwoPointer.url;
-import bannerThreePointer from "@/assets/imported/src/assets/refined/banner-3.jpg.asset.json";
-const bannerThree = bannerThreePointer.url;
+import bannerOne from "@/assets/imported/src/assets/refined/banner-1.jpg";
+import bannerTwo from "@/assets/imported/src/assets/refined/banner-2.jpg";
+import bannerThree from "@/assets/imported/src/assets/refined/banner-3.jpg";
 
-const mediaPointers = import.meta.glob<{ default: { url: string } }>("/src/assets/imported/src/assets/restored/tile-*.webp.asset.json", { eager: true });
+const mediaPointers = import.meta.glob<{ default: string }>("/src/assets/imported/src/assets/restored/tile-*.webp", { eager: true });
 const lifeosMedia = new Map<string, string>();
 for (const [path, mod] of Object.entries(mediaPointers)) {
   const match = path.match(/tile-([a-z]+)-(\d+)\./);
-  if (match) lifeosMedia.set(`${match[1]}/${Number(match[2])}`, mod.default.url);
+  if (match) lifeosMedia.set(`${match[1]}/${Number(match[2])}`, mod.default);
 }
-const hdMedia = import.meta.glob<{ default: { url: string } }>("/src/assets/imported/src/assets/hd/tile-*.jpg.asset.json", { eager: true });
+const hdMedia = import.meta.glob<{ default: string }>("/src/assets/imported/src/assets/hd/tile-*.jpg", { eager: true });
 for (const [path, mod] of Object.entries(hdMedia)) {
   const match = path.match(/tile-([a-z]+)-(\d+)\./);
-  if (match) lifeosMedia.set(`${match[1]}/${Number(match[2])}`, mod.default.url);
+  if (match) lifeosMedia.set(`${match[1]}/${Number(match[2])}`, mod.default);
 }
 function resolveMedia(html: string): string {
   const services = html.replace(/<img\b[^>]*>/gi, tag => {
@@ -65,13 +62,13 @@ function CompactCollection({ node, options, limit }: { node: Element; options: H
 // Each video keeps its own banner as poster; every play loads the shared 5s Life OS logo clip.
 function PosterVideo({ poster, alt }: { poster: string; alt: string }) {
   const [playing, setPlaying] = useState(false);
-  if (playing) return <video className="lifeos-video" src={introVideo.url} poster={poster} autoPlay controls playsInline onEnded={() => setPlaying(false)} aria-label={alt} />;
-  return <Button variant="reference" size="reference" className="lifeos-video-poster" aria-label={`Play ${alt}`} onClick={() => setPlaying(true)}><img className="reference-video-poster" src={poster} alt={alt} loading="lazy" decoding="async" /><img className="lifeos-video-logo" src={logoPointer.url} alt="" aria-hidden="true" /><span className="lifeos-video-play" aria-hidden="true" /></Button>;
+  if (playing) return <video className="lifeos-video" src={introVideo} poster={poster} autoPlay controls playsInline onEnded={() => setPlaying(false)} aria-label={alt} />;
+  return <Button variant="reference" size="reference" className="lifeos-video-poster" aria-label={`Play ${alt}`} onClick={() => setPlaying(true)}><img className="reference-video-poster" src={poster} alt={alt} loading="lazy" decoding="async" /><img className="lifeos-video-logo" src={logo} alt="" aria-hidden="true" /><span className="lifeos-video-play" aria-hidden="true" /></Button>;
 }
 
 
 export function BrandedPhoto({ src, alt, viewer = false, onOpen, className = "" }: { src: string; alt: string; viewer?: boolean; onOpen?: () => void; className?: string }) {
-  const image = <><img className={`lifeos-photo-image ${viewer ? "" : className.replace("img-responsive", "")}`.trim()} src={src} alt={alt} loading="eager" decoding="async" /><img className="lifeos-photo-logo" src={logoPointer.url} alt="Life OS" aria-hidden="true" /></>;
+  const image = <><img className={`lifeos-photo-image ${viewer ? "" : className.replace("img-responsive", "")}`.trim()} src={src} alt={alt} loading="eager" decoding="async" /><img className="lifeos-photo-logo" src={logo} alt="Life OS" aria-hidden="true" /></>;
   return viewer ? <span className="lifeos-photo lifeos-photo-viewer">{image}</span> : !onOpen ? <span className="lifeos-photo">{image}</span> : <Button variant="reference" size="reference" className="lifeos-photo lifeos-photo-action" aria-label={`View ${alt}`} onClick={event => { event.preventDefault(); event.stopPropagation(); onOpen(); }}>{image}</Button>;
 }
 

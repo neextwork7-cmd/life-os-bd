@@ -1,6 +1,6 @@
 /** Detail content for every Services menu item; hero images live in src/assets/hd/page-<slug>.jpg. */
-const heroes = import.meta.glob<{ default: { url: string } }>("/src/assets/imported/src/assets/hd/page-*.jpg.asset.json", { eager: true });
-const tiles = import.meta.glob<{ default: { url: string } }>("/src/assets/imported/src/assets/hd/service-*.jpg.asset.json", { eager: true });
+const heroes = import.meta.glob<{ default: string }>("/src/assets/imported/src/assets/hd/page-*.jpg", { eager: true });
+const tiles = import.meta.glob<{ default: string }>("/src/assets/imported/src/assets/hd/service-*.jpg", { eager: true });
 
 export type ServicePage = {
   slug: string; title: string; group: "Finance & Health" | "Lifestyle"; tagline: string; intro: string;
@@ -25,6 +25,6 @@ export const servicePages: ServicePage[] = [
   { slug: "emergency-sos", title: "Emergency (SOS)", group: "Lifestyle", tagline: "Help Is One Tap Away.", intro: "Press SOS to alert emergency contacts with your live location, call an ambulance, police or fire service, and find the nearest hospital instantly.", features: [["One-Tap SOS", "Alerts your family and shares your live location."], ["Ambulance Booking", "Request the nearest ambulance in seconds."], ["Nearby Hospitals", "Find open hospitals and emergency rooms around you."]], steps: ["Add your emergency contacts", "Press and hold SOS when in danger", "Help is notified with your location"], tiles: [12, 8, 19] },
 ];
 
-export const heroImage = (slug: string) => heroes[`/src/assets/imported/src/assets/hd/page-${slug}.jpg.asset.json`]?.default.url;
-export const tileImage = (n: number) => tiles[`/src/assets/imported/src/assets/hd/service-${String(n).padStart(2, "0")}.jpg.asset.json`]?.default.url;
+export const heroImage = (slug: string) => heroes[`/src/assets/imported/src/assets/hd/page-${slug}.jpg`]?.default;
+export const tileImage = (n: number) => tiles[`/src/assets/imported/src/assets/hd/service-${String(n).padStart(2, "0")}.jpg`]?.default;
 export const findServicePage = (slug: string) => servicePages.find(s => s.slug === slug);
