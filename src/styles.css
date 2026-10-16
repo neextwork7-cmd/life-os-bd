@@ -1,6 +1,7 @@
 @import "tailwindcss" source(none);
 @import "tw-animate-css";
 @import "./reference-adjustments.css";
+@import "./reference-mobile-fixes.css";
 @source "../src";
 :root {
   --benefits-background: oklch(.975 .018 170);
